@@ -4,6 +4,7 @@
   "main": "App.mjs",
   "type": "module",
   "scripts": {
+    "start": "node App.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon App.mjs"
   },
