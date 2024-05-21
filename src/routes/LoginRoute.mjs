@@ -1,5 +1,5 @@
 import express from "express";
-import login from "../controllers/loginController.mjs";
+import login from "../controllers/LoginController.mjs";
 import verifyToken from "../middlewares/verifyTokenLogin.mjs";
 
 //router that connects the routes with the main APP
