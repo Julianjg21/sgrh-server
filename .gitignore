@@ -2,8 +2,7 @@
 
 # dependencies
 /node_modules
-/server/node_modules
-/server/configs.mjs
+/configs.env
 /src/tests
 /.pnp
 .pnp.js

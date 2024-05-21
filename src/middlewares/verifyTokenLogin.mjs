@@ -1,5 +1,6 @@
 import JWT from "jsonwebtoken";
-import { jwtSecret } from "../controllers/LoginController.mjs";
+import dotenv from 'dotenv';
+dotenv.config({ path: './configs.env' });
 
 //function that verifies that the token is valid and correct
 const verifyToken = (req, res, next) => {
@@ -9,7 +10,7 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send("Token not provided");
   }
 
-  JWT.verify(token, jwtSecret, (err, decoded) => {
+  JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).send("Invalid token"); //Handle token verification error
     }

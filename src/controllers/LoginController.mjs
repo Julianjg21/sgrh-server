@@ -1,13 +1,14 @@
 import { compare } from "bcrypt";
 import JWT from "jsonwebtoken";
 import db from "../DataBase/ConectDb.mjs";
-import configs from "../../configs.mjs";
+import dotenv from 'dotenv';
+dotenv.config({ path: './configs.env' });
 
 //Object that saves the functions created in the controller
 const login = {};
 
 //export the secret password of the token
-export const jwtSecret = configs.jwtScret;
+export const jwtSecret = process.env.JWT_SECRET;
 
 //function that verifies the received data and creates the JWT token
 login.loginController = (req, res) => {

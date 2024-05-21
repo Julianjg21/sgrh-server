@@ -3,9 +3,13 @@ import cors from "cors";
 import db from "./src/DataBase/ConectDb.mjs";
 import routerLogin from "./src/routes/loginRoute.mjs";
 import routerCreateUsers from "./src/routes/CreateUsersRoute.mjs";
-import configs from "./configs.mjs";
+import dotenv from 'dotenv';
 const app = express();
-const PORT = configs.serverPort;
+const PORT =  process.env.PORT ||  3080;
+
+dotenv.config({ path: './configs.env' });
+dotenv.config();
+
 
 app.use(cors()); //allow the Express server to respond to HTTP requests from other domains
 app.use(express.json()); // Enable JSON parsing for incoming requests
