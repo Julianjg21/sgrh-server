@@ -18,7 +18,9 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.9.7"
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.7",
+    "pdfkit": "^0.15.0"
   },
   "devDependencies": {
     "esm": "^3.2.25",

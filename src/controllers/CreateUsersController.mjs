@@ -36,9 +36,19 @@ createUsers.createUserController = (req, res) => {
 
         const passwordId = results.insertId;
 
+
+        db.query('INSERT INTO  employeesDocumentation (employeeDocumentationId) VALUES (?)', [identification],
+        (error, results, fields) => {
+          if (error) {
+            console.error("Error executing query:", error);
+            return res.status(500).json({ error: "Error executing query" });
+          }
+         
+        }
+        )
         //Insert user data into userRegistration table
         const query =
-          "INSERT INTO userRegistration (userNames, lastNames, typeIdentification, identification, phoneNumber, birthDate, email, bank, accountNumber, passwordId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO userRegistration (userNames, lastNames, typeIdentification, identification, phoneNumber, birthDate, email, bank, accountNumber, passwordId, employeeDocumentationId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         db.query(
           query,
           [
@@ -52,6 +62,7 @@ createUsers.createUserController = (req, res) => {
             bank,
             accountNumber,
             passwordId,
+            identification
           ],
           (error, results, fields) => {
             if (error) {
@@ -59,8 +70,10 @@ createUsers.createUserController = (req, res) => {
               return res.status(500).json({ error: "Error executing query" });
             }
             res.status(200).json({ message: "Successfully created user" });
+
           }
         );
+        
       }
     );
   });

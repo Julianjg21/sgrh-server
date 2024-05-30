@@ -18,7 +18,7 @@ login.loginController = (req, res) => {
     [email],
     async (err, userResults) => {
       if (err) {
-        return res.status(500).send("Error searching for email");
+        return res.status(500).send("Error, the server could not search for the email",  err);
       }
       if (userResults.length === 0) {
         return res.status(401).send("Incorrect user email");
