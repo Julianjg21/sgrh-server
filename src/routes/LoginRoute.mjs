@@ -7,8 +7,6 @@ const routerLogin = express.Router();
 //route for verifying data received in the login
 routerLogin.post("/api/datos", login.loginController);
 //This route is protected and will only be accessed if the verifyToken middleware passes JWT token verification
-routerLogin.get("/menu", verifyToken, (req, res) => {
-  res.send(true); //Confirmation is sent that the data has been validated and the user will be able to enter
-});
+routerLogin.get("/menu", verifyToken);
 
 export default routerLogin;
