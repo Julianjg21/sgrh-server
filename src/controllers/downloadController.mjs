@@ -2,29 +2,34 @@ import db from "../DataBase/ConectDb.mjs";
 
 const downloadController = {};
 
-downloadController.downloadDocument = (req, res) => {
-  const column = 'AdditionalDocuments'; //Column from which the document will be obtained
-  const identification = req.params.identification; // User ID
+downloadController.downloadDocument = async (req, res) => {
+  const column = req.query.column;
+  const idUser = req.query.idUser;
+  console.log(column, idUser);
 
-  const query = `SELECT ${column} FROM employeesDocumentation WHERE identification = ?`;
+  if (!column || !idUser) {
+    return res.status(400).json({ message: "Missing required parameters" });
+  }
 
-  db.query(query, [identification], (error, results) => {
+  const query = `SELECT ${column} FROM employeesDocumentation WHERE employeeDocumentationId = ?`;
+
+  db.query(query, [idUser], (error, results) => {
     if (error) {
       console.error("Error:", error);
-      return res.status(500).json({ message: "Error fetching document", error });
+      return res.status(500).json({ message: "Error retrieving file", error });
     }
-
+     //check if the document exists in the database
     if (results.length === 0) {
-      return res.status(404).json({ message: "Document not found" });
+      return res.status(404).json({ message: "File not found" });
     }
 
-    const document = results[0][column];
-
-   //Set content type
+    const fileBuffer = results[0][column];
+    
+    // Set the appropriate headers for file download
     res.setHeader('Content-Type', 'application/pdf');
-   //Send the document as a blob
-    const blob = Buffer.from(document, 'base64');
-    res.send(blob);
+    res.setHeader('Content-Disposition', `attachment; filename=${column}_${idUser}.pdf`);
+
+    res.send(fileBuffer);
   });
 };
 
